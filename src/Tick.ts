@@ -1,4 +1,4 @@
-import { MCFunction, Objective, scoreboard, team } from "sandstone";
+import { MCFunction, Objective, team } from "sandstone";
 import { detectNewDay, speedUpDayClock } from "./Game/DayCycleController";
 
 // *  Scoreboard
@@ -27,7 +27,7 @@ MCFunction(
   () => {
     // scoreboard.objectives.setDisplay("sidebar", sidebarScores.name);
 
-    // Suffix for day count
+    // Suffix for day count on the side scoreboard
     team.add("day_count");
     team.modify("day_count", "suffix", `" Count:"`);
     team.join("day_count", dayDisplay);
