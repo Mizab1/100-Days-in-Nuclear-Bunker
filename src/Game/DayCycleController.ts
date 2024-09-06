@@ -17,9 +17,11 @@ export const detectNewDay = () => {
   // Detect if tick of the day matches 36 and advance the day count
   _.if(timeOfDay.equalTo(36), () => {
     dayNumberArr.forEach((day, index) => {
+      if (index == dayNumberArr.length - 1) {
+        return null;
+      }
       _.if(daysPassed.equalTo(day), () => {
-        const nextIdx = index == dayNumberArr.length - 1 ? index : index + 1;
-        daysPassed.set(dayNumberArr[nextIdx]);
+        daysPassed.set(dayNumberArr[index + 1]);
       });
     });
     // daysPassed.add(1);
