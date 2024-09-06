@@ -1,13 +1,21 @@
-import type { SandstoneConfig } from 'sandstone'
+import type { SandstoneConfig } from "sandstone";
+import { addDependencies } from "./AddDependencies";
 
 export default {
-  name: '100 Days in Nuclear Bunker',
-  description: [ 'A ', { text: 'Sandstone', color: 'gold' }, ' data pack.' ],
-  formatVersion: 7,
-  namespace: 'nuclear_bunker',
-  packUid: 'EmYnr_GC',
-  saveOptions: { path: './.sandstone/output/datapack' },
+  name: "100 Days in Nuclear Bunker",
+  description: ["A datapack by ", { text: "Mizab", color: "gold" }],
+  formatVersion: 26,
+  namespace: "nuclear_bunker",
+  packUid: "EmYnr_GC",
+  saveOptions: { world: "100 Days in Nuclear Bunker" },
   onConflict: {
-    default: 'warn',
+    default: "warn",
   },
-} as SandstoneConfig
+  scripts: {
+    afterAll: () => {
+      // @ts-ignore
+      let worldName = this.default.saveOptions.world;
+      addDependencies(worldName);
+    },
+  },
+} as SandstoneConfig;
