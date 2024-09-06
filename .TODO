@@ -1,0 +1,11 @@
+- Content
+The game works like this: you spawn in a nuclear bunker with a little bit of food in the backroom of that bunker. Then you have to survive 100 days (as the days pass, it should be displayed somewhere, but not top left corner). The map starts with a nuclear bond (shaking and maybe displaying it somewhere as a text message). Then you can step out of the bunker and search through multiple houses, prisons, cafes and more. They are all run down and abandoned. In those buildings you can find food, water and weapons. You have a food-bar, water-bar and health bar. Maybe displaying it on the side or adding a water bar on top of the already existing Minecraft food bar. From time to time you have zombies spawning ranging from normal size, mid size and huge. They try to kill you. You also have a tornado spawning that would also suck you in and kill you. You can seek shelter in those abandoned buildings. The goal is to survive those 100 days and find weapons, food and water to not die due to starvation, thirst or monsters. From day to day the monsters should get stronger.
+The map doesn't have to be infinite like you can have a big area with a lot of houses, buildings, prisons and towers which the two players have to loot through those 100 days.
+
+- Manager's note
+implement days pass system, weapons, loots, and custom zombies like bunker ones
+
+- Tasks
+✔ Make the length of days shorter (4 Minutes)
+✔ Set a sidebar to display the days passed
+✔ Make a system for giving custom days 
