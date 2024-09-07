@@ -289,3 +289,39 @@ export class runAfter {
     return this.time;
   }
 }
+
+/**
+ * Generates a random array of numbers within the given range, optionally including the min and max values.
+ *
+ * @param {number} minValue - The minimum value of the range.
+ * @param {number} maxValue - The maximum value of the range.
+ * @param {number} arrayLength - The number of elements to generate in the array.
+ * @param {boolean} [includeRangeEdges=false] - Whether to include the min and max values in the array.
+ * @return {number[]} The generated array of numbers.
+ */
+export function generateRandomArray(
+  minValue: number,
+  maxValue: number,
+  arrayLength: number,
+  includeRangeEdges: boolean = false
+): number[] {
+  if (arrayLength > maxValue - minValue + 1) {
+    throw new Error("Array length cannot be larger than the range of numbers.");
+  }
+
+  const result: number[] = [];
+
+  if (includeRangeEdges) {
+    result.push(minValue, maxValue);
+  }
+
+  while (result.length < arrayLength) {
+    const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+
+    if (!result.includes(randomNumber)) {
+      result.push(randomNumber);
+    }
+  }
+
+  return result.sort((a, b) => a - b);
+}
