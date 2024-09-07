@@ -7,8 +7,11 @@ export default {
   formatVersion: 26,
   namespace: "nuclear_bunker",
   packUid: "EmYnr_GC",
-  saveOptions: { path: ".sandstone/output/" },
-  // saveOptions: { world: "100 Days in Nuclear Bunker" },
+  // saveOptions: { path: ".sandstone/output/" },
+  saveOptions: {
+    //  world: "100 Days in Nuclear Bunker",
+    world: "100 Days in Nuclear Bunker Test World",
+  },
   onConflict: {
     default: "warn",
   },
