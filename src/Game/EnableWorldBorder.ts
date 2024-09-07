@@ -1,6 +1,6 @@
-import { _, Data, execute, MCFunction, say } from "sandstone";
+import { _, Data, execute, MCFunction, say, worldborder } from "sandstone";
 import { playerPosX, playerPosZ } from "../Tick";
-import { WORLD_BORDER, WORLD_BORDER_VISIBLE_DISTANCE } from "../Constants";
+import { WORLD_BORDER_RADIUS, WORLD_BORDER_VISIBLE_DISTANCE } from "../Constants";
 
 export const updatePlayerPos = MCFunction("game/update_player_pos", () => {
   execute.as("@a").run(() => {
@@ -12,25 +12,28 @@ export const updatePlayerPos = MCFunction("game/update_player_pos", () => {
 const checkIfNearWorldBorder = MCFunction(
   "game/check_if_near_world_border",
   () => {
-    const minVisibleDistance = WORLD_BORDER - WORLD_BORDER_VISIBLE_DISTANCE;
-    const maxVisibleDistance = WORLD_BORDER;
+    const minVisibleDistance = WORLD_BORDER_RADIUS - WORLD_BORDER_VISIBLE_DISTANCE;
+    const maxVisibleDistance = WORLD_BORDER_RADIUS;
     execute.as("@a").run(() => {
-      // +ve X
       _.if(playerPosX.matches([minVisibleDistance, maxVisibleDistance]), () => {
-        say("+ve X");
-      });
-      // -ve X
-      _.if(playerPosX.matches([-maxVisibleDistance, -minVisibleDistance]), () => {
-        say("-ve X");
-      });
-      // +ve Z
-      _.if(playerPosZ.matches([minVisibleDistance, maxVisibleDistance]), () => {
-        say("+ve Z");
-      });
-      // -ve Z
-      _.if(playerPosZ.matches([-maxVisibleDistance, -minVisibleDistance]), () => {
-        say("-ve Z");
-      });
+        // +ve X
+        worldborder.set(WORLD_BORDER_RADIUS * 2);
+      })
+        .elseIf(playerPosX.matches([-maxVisibleDistance, -minVisibleDistance]), () => {
+          // -ve X
+          worldborder.set(WORLD_BORDER_RADIUS * 2);
+        })
+        .elseIf(playerPosZ.matches([minVisibleDistance, maxVisibleDistance]), () => {
+          // +ve Z
+          worldborder.set(WORLD_BORDER_RADIUS * 2);
+        })
+        .elseIf(playerPosZ.matches([-maxVisibleDistance, -minVisibleDistance]), () => {
+          // -ve Z
+          worldborder.set(WORLD_BORDER_RADIUS * 2);
+        })
+        .else(() => {
+          worldborder.set(999999);
+        });
     });
   },
   {
