@@ -20,7 +20,7 @@ MCFunction(
 /**
  * Shakes the screen for a specified amount of time.
  * @context It shakes the screen of the entity in context
- * @important Must be ran in a ticking function and used along with setScreenShakeTimer function
+ * @important Must be ran in a ticking function with As/At context  and used along with setScreenShakeTimer function
  *
  * @param {number} time - The duration of the screen shake in ticks. Defaults to 20.
  * @return {void} This function does not return anything.
