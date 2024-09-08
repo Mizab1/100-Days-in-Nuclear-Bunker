@@ -31,8 +31,3 @@ export const detectNewDay = () => {
     ]);
   });
 };
-
-// Reset the day count
-MCFunction("reset_day_count", () => {
-  daysPassed.set(0);
-});
