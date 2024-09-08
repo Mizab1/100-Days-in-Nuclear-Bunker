@@ -10,6 +10,7 @@ import {
   rel,
   Selector,
   sleep,
+  spawnpoint,
   summon,
   teleport,
   title,
@@ -82,6 +83,7 @@ MCFunction(
         title("@a").title({ text: "You are in the Bunker", color: "green" });
         teleport("@a", bunkerCoords);
         playsound("minecraft:block.note_block.bell", "master", "@a", bunkerCoords);
+        spawnpoint("@a", bunkerCoords);
       });
   },
   {
@@ -94,6 +96,6 @@ export const screenShakeTick = () => {
     .as("@a")
     .at(self)
     .run(() => {
-      shakeScreen(shakeTime, [4, 4]);
+      shakeScreen(shakeTime, [3, 3]);
     });
 };
