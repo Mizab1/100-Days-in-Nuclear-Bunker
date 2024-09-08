@@ -1,7 +1,8 @@
-import { gamerule, MCFunction, Objective, team, worldborder } from "sandstone";
+import { abs, Coordinates, gamerule, MCFunction, Objective, Selector, team, teleport, worldborder } from "sandstone";
 import { detectNewDay, speedUpDayClock } from "./Game/DayCycleController";
 import { updatePlayerPos } from "./Game/EnableWorldBorder";
 import { WORLD_BORDER_CENTER } from "./Constants";
+import { screenShakeTick } from "./Game/Start";
 
 // *  Scoreboard
 // Scores that shows the stats of the game
@@ -17,6 +18,9 @@ export const timeOfDay = privateScoreboard("time_of_day");
 export const playerPosX = Objective.create("pos_x", "dummy")("@s");
 export const playerPosZ = Objective.create("pos_z", "dummy")("@s");
 
+export const self = Selector("@s");
+export const bunkerCoords: Coordinates = abs(-359, 79, 97);
+
 // ! Tick Function
 MCFunction(
   "tick",
@@ -24,6 +28,7 @@ MCFunction(
     // speedUpDayClock();
     // detectNewDay();
     updatePlayerPos();
+    screenShakeTick();
   },
   { runEachTick: true }
 );
@@ -51,3 +56,12 @@ MCFunction(
     runOnLoad: true,
   }
 );
+
+// Misc functions
+MCFunction("tp_to_hub", () => {
+  teleport(self, abs(-1077, 214, -235));
+});
+// Reset the day count
+MCFunction("reset_day_count", () => {
+  daysPassed.set(0);
+});
