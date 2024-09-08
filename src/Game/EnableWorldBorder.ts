@@ -1,6 +1,6 @@
-import { _, Data, execute, MCFunction, say, worldborder } from "sandstone";
+import { _, Data, execute, MCFunction, worldborder } from "sandstone";
+import { WORLD_BORDER_RADIUS, WORLD_BORDER_VISIBLE_DISTANCE, WORLD_BORDER_X_OFFSET } from "../Constants";
 import { playerPosX, playerPosZ } from "../Tick";
-import { WORLD_BORDER_RADIUS, WORLD_BORDER_VISIBLE_DISTANCE } from "../Constants";
 
 export const updatePlayerPos = MCFunction("game/update_player_pos", () => {
   execute.as("@a").run(() => {
@@ -12,22 +12,25 @@ export const updatePlayerPos = MCFunction("game/update_player_pos", () => {
 const checkIfNearWorldBorder = MCFunction(
   "game/check_if_near_world_border",
   () => {
-    const minVisibleDistance = WORLD_BORDER_RADIUS - WORLD_BORDER_VISIBLE_DISTANCE;
-    const maxVisibleDistance = WORLD_BORDER_RADIUS;
+    const minVisibleDistanceX = WORLD_BORDER_RADIUS - WORLD_BORDER_VISIBLE_DISTANCE + WORLD_BORDER_X_OFFSET;
+    const maxVisibleDistanceX = WORLD_BORDER_RADIUS + WORLD_BORDER_X_OFFSET;
+
+    const minVisibleDistanceZ = WORLD_BORDER_RADIUS - WORLD_BORDER_VISIBLE_DISTANCE;
+    const maxVisibleDistanceZ = WORLD_BORDER_RADIUS;
     execute.as("@a").run(() => {
-      _.if(playerPosX.matches([minVisibleDistance, maxVisibleDistance]), () => {
+      _.if(playerPosX.matches([minVisibleDistanceX, maxVisibleDistanceX]), () => {
         // +ve X
         worldborder.set(WORLD_BORDER_RADIUS * 2);
       })
-        .elseIf(playerPosX.matches([-maxVisibleDistance, -minVisibleDistance]), () => {
+        .elseIf(playerPosX.matches([-maxVisibleDistanceX, -minVisibleDistanceX]), () => {
           // -ve X
           worldborder.set(WORLD_BORDER_RADIUS * 2);
         })
-        .elseIf(playerPosZ.matches([minVisibleDistance, maxVisibleDistance]), () => {
+        .elseIf(playerPosZ.matches([minVisibleDistanceZ, maxVisibleDistanceZ]), () => {
           // +ve Z
           worldborder.set(WORLD_BORDER_RADIUS * 2);
         })
-        .elseIf(playerPosZ.matches([-maxVisibleDistance, -minVisibleDistance]), () => {
+        .elseIf(playerPosZ.matches([-maxVisibleDistanceZ, -minVisibleDistanceZ]), () => {
           // -ve Z
           worldborder.set(WORLD_BORDER_RADIUS * 2);
         })
