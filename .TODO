@@ -12,3 +12,6 @@ implement days pass system, weapons, loots, and custom zombies like bunker ones
 
 - Commands
 /summon text_display -1076 215.4 -239.9 {Tags:["start_text"],text:'{"text":"<- Start","color":"gold"}'}
+
+# Marker
+/summon block_display ~ ~ ~ {Glowing:1b,Tags:["dummy_bunker_marker"],transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.25f,-0.25f,-0.25f],scale:[0.5f,0.5f,0.5f]},block_state:{Name:"minecraft:gold_block"}}
