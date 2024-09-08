@@ -1,6 +1,7 @@
-import { MCFunction, Objective, team } from "sandstone";
+import { gamerule, MCFunction, Objective, team, worldborder } from "sandstone";
 import { detectNewDay, speedUpDayClock } from "./Game/DayCycleController";
 import { updatePlayerPos } from "./Game/EnableWorldBorder";
+import { WORLD_BORDER_CENTER } from "./Constants";
 
 // *  Scoreboard
 // Scores that shows the stats of the game
@@ -20,8 +21,8 @@ export const playerPosZ = Objective.create("pos_z", "dummy")("@s");
 MCFunction(
   "tick",
   () => {
-    speedUpDayClock();
-    detectNewDay();
+    // speedUpDayClock();
+    // detectNewDay();
     updatePlayerPos();
   },
   { runEachTick: true }
@@ -37,6 +38,14 @@ MCFunction(
     team.add("day_count");
     team.modify("day_count", "suffix", `" Count:"`);
     team.join("day_count", dayDisplay);
+
+    // Update gamerule
+    gamerule("keepInventory", true);
+    gamerule("doFireTick", false);
+
+    // Set the worldborder center
+    // @ts-ignore
+    worldborder.center(WORLD_BORDER_CENTER);
   },
   {
     runOnLoad: true,
