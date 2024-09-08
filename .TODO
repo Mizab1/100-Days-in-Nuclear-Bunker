@@ -9,3 +9,6 @@ implement days pass system, weapons, loots, and custom zombies like bunker ones
 ✔ Make the length of days shorter (4 Minutes)
 ✔ Set a sidebar to display the days passed
 ✔ Make a system for giving custom days 
+
+- Commands
+/summon text_display -1076 215.4 -239.9 {Tags:["start_text"],text:'{"text":"<- Start","color":"gold"}'}
