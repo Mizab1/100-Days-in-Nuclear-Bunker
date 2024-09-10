@@ -1,7 +1,7 @@
-import { abs, Coordinates, gamerule, MCFunction, Objective, Selector, team, teleport, worldborder } from "sandstone";
-import { detectNewDay, speedUpDayClock } from "./Game/DayCycleController";
-import { updatePlayerPos } from "./Game/EnableWorldBorder";
+import { abs, Coordinates, gamerule, MCFunction, Objective, scoreboard, Selector, team, teleport, worldborder } from "sandstone";
 import { WORLD_BORDER_CENTER } from "./Constants";
+import { updatePlayerPos } from "./Game/EnableWorldBorder";
+import { glowChestTick, glowChestTrigger } from "./Game/GlowingChest";
 import { screenShakeTick } from "./Game/Start";
 
 // *  Scoreboard
@@ -29,6 +29,10 @@ MCFunction(
     // detectNewDay();
     updatePlayerPos();
     screenShakeTick();
+    glowChestTick();
+
+    // Enable the trigger
+    scoreboard.players.enable("@a", glowChestTrigger.objective.name);
   },
   { runEachTick: true }
 );
