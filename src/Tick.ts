@@ -1,9 +1,9 @@
-import { abs, Coordinates, gamerule, MCFunction, Objective, scoreboard, Selector, team, teleport, worldborder } from "sandstone";
+import { abs, gamerule, MCFunction, Objective, scoreboard, Selector, team, teleport, worldborder } from "sandstone";
 import { WORLD_BORDER_CENTER } from "./Constants";
+import { tornadoRunningLogic } from "./Game/Disaster/Tornado";
 import { updatePlayerPos } from "./Game/EnableWorldBorder";
 import { glowChestTick, glowChestTrigger } from "./Game/Loot/GlowingChest";
 import { screenShakeTick } from "./Game/Start";
-import { tornadoRunningLogic } from "./Game/Disaster/Tornado";
 
 // *  Scoreboard
 // Scores that shows the stats of the game

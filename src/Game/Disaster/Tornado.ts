@@ -1,4 +1,4 @@
-import { MCFunction, summon, rel, NBT, _, execute, kill, Objective, particle, Score, Selector, spreadplayers } from "sandstone";
+import { _, execute, kill, MCFunction, NBT, Objective, particle, rel, Score, Selector, spreadplayers, summon } from "sandstone";
 import { self } from "../../Tick";
 import { RunOnce } from "../../Utils/UtilFunctions";
 

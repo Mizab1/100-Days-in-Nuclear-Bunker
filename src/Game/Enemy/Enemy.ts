@@ -1,7 +1,7 @@
-import { _, abs, execute, MCFunction, rel, say, Selector, spreadplayers, Variable } from "sandstone";
+import { _, execute, MCFunction, rel, Selector, spreadplayers, Variable } from "sandstone";
+import { ENEMY_COUNT } from "../../Constants";
 import { daysPassed, self } from "../../Tick";
 import { uniform } from "../../Utils/RandomUniform";
-import { ENEMY_COUNT } from "../../Constants";
 
 const randomScore = Variable(0);
 
