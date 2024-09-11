@@ -1,8 +1,6 @@
 // @ts-nocheck
 import { LootTable } from "sandstone";
 
-// setblock ~ ~ ~ chest{LootTable:"nuclear_bunker:chest/loot"} replace
-
 LootTable("chest/loot", {
   type: "minecraft:chest",
   pools: [
@@ -698,5 +696,3 @@ LootTable("chest/loot", {
     },
   ],
 });
-
-// /loot replace block 29 56 -67 container.0 27 loot minecraft:empty
