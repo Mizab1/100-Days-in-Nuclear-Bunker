@@ -1,3 +1,10 @@
+import { _, abs, execute, MCFunction, rel, say, Selector, spreadplayers, Variable } from "sandstone";
+import { daysPassed, self } from "../../Tick";
+import { uniform } from "../../Utils/RandomUniform";
+import { ENEMY_COUNT } from "../../Constants";
+
+const randomScore = Variable(0);
+
 const easyEnemyArr = [
   "minecraft:husk",
   "minecraft:zombie",
@@ -87,5 +94,163 @@ const mutantEnemyArr = [
 
   368 81 -281
   247 81 -260
+
+  1122 95 -87
+  1292 95 -66
+  1168 95 133
+  1122 95 243
 */
-const epicenterCoords = [];
+const epicenterCoords = [
+  // abs(-288, 81, 174),
+  // abs(-369, 80, -12),
+  // abs(-586, 100, -75),
+  // abs(-503, 100, -86),
+  // abs(-108, 63, 527),
+  // abs(-65, 63, 414),
+  // abs(-125, 86, 210),
+  // abs(16, 81, 243),
+  // abs(134, 81, 165),
+  // abs(260, 81, 346),
+  // abs(198, 81, 415),
+  // abs(405, 81, 346),
+  // abs(491, 81, 280),
+  // abs(220, 81, 415),
+  // abs(130, 81, 499),
+  // abs(349, 81, 719),
+  // abs(824, 81, 857),
+  // abs(705, 81, 857),
+  // abs(950, 81, 706),
+  // abs(942, 81, 589),
+  // abs(821, 95, 421),
+  // abs(717, 95, 419),
+  // abs(368, 81, -281),
+  // abs(247, 81, -260),
+  // abs(1122, 95, -87),
+  // abs(1292, 95, -66),
+  // abs(1168, 95, 133),
+  // abs(1122, 95, 243),
+  // abs(14, 81, 524), // Test Coords
+];
+
+const enemySpawner = MCFunction(
+  "game/enemy/enemy_spawner",
+  () => {
+    // Absolute spawn
+    epicenterCoords.forEach((coords) => {
+      execute
+        .positioned(coords)
+        .if.entity(Selector("@a", { distance: [Infinity, 100] }))
+        .run(() =>
+          MCFunction(
+            "game/enemy/positioned_check_day_and_spawn",
+            () => {
+              spawnWithSpread(2, 8);
+            },
+            { onConflict: "ignore" }
+          )()
+        );
+    });
+
+    // Relative spawn
+    execute
+      .as(Selector("@a", { limit: 1 }))
+      .at(self)
+      .positioned(rel(0, 10, 0))
+      .run(() => {
+        MCFunction(
+          "game/enemy/relative_check_day_and_spawn",
+          () => {
+            spawnWithSpread(20, 40);
+          },
+          { onConflict: "ignore" }
+        )();
+      });
+  },
+  {
+    runEach: "10s",
+  }
+);
+
+const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
+  _.if(_.and(daysPassed[">="](1), daysPassed["<="](25)), () => {
+    // Spawn multiple mob and spread them out
+    let temp = ENEMY_COUNT;
+    while (temp > 0) {
+      MCFunction(
+        "game/enemy/spawn_random_enemy_easy",
+        () => {
+          randomScore.set(uniform(0, easyEnemyArr.length - 1));
+          easyEnemyArr.forEach((enemy, index) => {
+            execute
+              .if(randomScore["=="](index))
+              .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+          });
+        },
+        { onConflict: "ignore" }
+      )();
+      temp--;
+    }
+    spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
+  })
+    .elseIf(_.and(daysPassed[">="](26), daysPassed["<="](50)), () => {
+      // Spawn multiple mob and spread them out
+      let temp = ENEMY_COUNT;
+      while (temp > 0) {
+        MCFunction(
+          "game/enemy/spawn_random_enemy_medium",
+          () => {
+            randomScore.set(uniform(0, mediumEnemyArr.length - 1));
+            mediumEnemyArr.forEach((enemy, index) => {
+              execute
+                .if(randomScore["=="](index))
+                .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+            });
+          },
+          { onConflict: "ignore" }
+        )();
+        temp--;
+      }
+      spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
+    })
+    .elseIf(_.and(daysPassed[">="](51), daysPassed["<="](75)), () => {
+      // Spawn multiple mob and spread them out
+      let temp = ENEMY_COUNT;
+      while (temp > 0) {
+        MCFunction(
+          "game/enemy/spawn_random_enemy_difficult",
+          () => {
+            randomScore.set(uniform(0, difficultEnemyArr.length - 1));
+            difficultEnemyArr.forEach((enemy, index) => {
+              execute
+                .if(randomScore["=="](index))
+                .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+            });
+          },
+          { onConflict: "ignore" }
+        )();
+        temp--;
+      }
+      spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
+    })
+    .elseIf(_.and(daysPassed[">="](76), daysPassed["<="](100)), () => {
+      // Spawn multiple mob and spread them out
+      let temp = ENEMY_COUNT;
+      while (temp > 0) {
+        MCFunction(
+          "game/enemy/spawn_random_enemy_mutant",
+          () => {
+            const enemyArr = mutantEnemyArr.concat(easyEnemyArr);
+            randomScore.set(uniform(0, enemyArr.length - 1));
+            enemyArr.forEach((enemy, index) => {
+              execute
+                .if(randomScore["=="](index))
+                .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+            });
+          },
+          { onConflict: "ignore" }
+        )();
+        temp--;
+      }
+      spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
+    });
+};
