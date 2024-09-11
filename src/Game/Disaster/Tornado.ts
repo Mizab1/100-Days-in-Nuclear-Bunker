@@ -5,35 +5,35 @@ import { RunOnce } from "../../Utils/UtilFunctions";
 const tornadoLifeScore: Score<string> = Objective.create("tornado_life", "dummy")("@s");
 const TORNADO_LIFE = 240;
 
-// const tornadoSpawner = MCFunction(
-//   "game/disaster/tornado/tornado_spawner",
-//   () => {
-//     execute
-//       .as(Selector("@a", { limit: 1 }))
-//       .at(self)
-//       .run(() => {
-//         summon("minecraft:armor_stand", rel(0, 0, 0), {
-//           Invisible: NBT.byte(1),
-//           Tags: ["tornado_spawn_marker"],
-//         });
+const tornadoSpawner = MCFunction(
+  "game/disaster/tornado/tornado_spawner",
+  () => {
+    execute
+      .as(Selector("@a", { limit: 1 }))
+      .at(self)
+      .run(() => {
+        summon("minecraft:armor_stand", rel(0, 0, 0), {
+          Invisible: NBT.byte(1),
+          Tags: ["tornado_spawn_marker"],
+        });
 
-//         const tornadoMarkerSelector = Selector("@e", { type: "minecraft:armor_stand", tag: ["tornado_spawn_marker"] });
+        const tornadoMarkerSelector = Selector("@e", { type: "minecraft:armor_stand", tag: ["tornado_spawn_marker"] });
 
-//         spreadplayers(rel(0, 0), 10, 30, false, tornadoMarkerSelector);
+        spreadplayers(rel(0, 0), 10, 30, false, tornadoMarkerSelector);
 
-//         execute
-//           .as(tornadoMarkerSelector)
-//           .at(self)
-//           .run(() => {
-//             execute.positioned(rel(0, 10, 0)).run(() => summonTornado());
-//             kill(self);
-//           });
-//       });
-//   },
-//   {
-//     runEach: "100s",
-//   }
-// );
+        execute
+          .as(tornadoMarkerSelector)
+          .at(self)
+          .run(() => {
+            execute.positioned(rel(0, 10, 0)).run(() => summonTornado());
+            kill(self);
+          });
+      });
+  },
+  {
+    runEach: "100s",
+  }
+);
 
 const summonTornado = MCFunction("game/disaster/tornado/summon_tornado", () => {
   // ! Use this with a positional offset
