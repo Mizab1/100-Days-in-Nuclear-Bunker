@@ -167,7 +167,7 @@ const enemySpawner = MCFunction(
       });
   },
   {
-    runEach: "10s",
+    runEach: "50s",
   }
 );
 
