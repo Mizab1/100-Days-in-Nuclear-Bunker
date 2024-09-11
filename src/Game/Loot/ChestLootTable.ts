@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { LootTable } from "sandstone";
 
+// setblock ~ ~ ~ chest{LootTable:"nuclear_bunker:chest/loot"} replace
+
 LootTable("chest/loot", {
   type: "minecraft:chest",
   pools: [
@@ -81,22 +83,22 @@ LootTable("chest/loot", {
         {
           type: "minecraft:item",
           name: "minecraft:netherite_chestplate",
-          weight: 3,
+          weight: 4,
         },
         {
           type: "minecraft:item",
           name: "minecraft:netherite_leggings",
-          weight: 3,
+          weight: 4,
         },
         {
           type: "minecraft:item",
           name: "minecraft:netherite_boots",
-          weight: 3,
+          weight: 4,
         },
         {
           type: "minecraft:item",
           name: "minecraft:netherite_helmet",
-          weight: 3,
+          weight: 4,
         },
       ],
     },
@@ -339,6 +341,34 @@ LootTable("chest/loot", {
               function: "minecraft:set_count",
               count: {
                 min: 1,
+                max: 3,
+              },
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:ender_pearl",
+          weight: 7,
+          functions: [
+            {
+              function: "minecraft:set_count",
+              count: {
+                min: 1,
+                max: 4,
+              },
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:enchanted_golden_apple",
+          weight: 5,
+          functions: [
+            {
+              function: "minecraft:set_count",
+              count: {
+                min: 1,
                 max: 2,
               },
             },
@@ -451,6 +481,17 @@ LootTable("chest/loot", {
             },
           ],
         },
+        {
+          type: "minecraft:item",
+          name: "tacz:modern_kinetic_gun",
+          weight: 5,
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{HasBulletInBarrel: 1b, GunFireMode: "SEMI", GunId: "tacz:m95", GunCurrentAmmoCount: 5, AttachmentSCOPE: {id: "tacz:attachment", Count: 1b, tag: {AttachmentId: "tacz:scope_standard_8x"}}}',
+            },
+          ],
+        },
       ],
     },
     {
@@ -537,15 +578,15 @@ LootTable("chest/loot", {
           weight: 10,
           functions: [
             {
+              function: "minecraft:set_nbt",
+              tag: '{AmmoId: "tacz:556x45"}',
+            },
+            {
               function: "minecraft:set_count",
               count: {
                 min: 1,
                 max: 60,
               },
-            },
-            {
-              function: "minecraft:set_nbt",
-              tag: '{AmmoId: "tacz:556x45"}',
             },
           ],
         },
@@ -555,15 +596,101 @@ LootTable("chest/loot", {
           weight: 10,
           functions: [
             {
+              function: "minecraft:set_nbt",
+              tag: '{AmmoId: "tacz:762x39"}',
+            },
+            {
               function: "minecraft:set_count",
               count: {
                 min: 1,
                 max: 60,
               },
             },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "tacz:ammo",
+          weight: 7,
+          functions: [
             {
               function: "minecraft:set_nbt",
-              tag: '{AmmoId: "tacz:762x39"}',
+              tag: '{AmmoId: "tacz:50bmg"}',
+            },
+            {
+              function: "minecraft:set_count",
+              count: {
+                min: 6,
+                max: 30,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      rolls: {
+        min: 1,
+        max: 3,
+      },
+      entries: [
+        {
+          type: "minecraft:item",
+          name: "minecraft:splash_potion",
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{Potion:"minecraft:strong_healing"}',
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:splash_potion",
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{Potion:"minecraft:strong_swiftness"}',
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:splash_potion",
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{Potion:"minecraft:strong_leaping"}',
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:splash_potion",
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{Potion:"minecraft:strong_regeneration"}',
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:splash_potion",
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{Potion:"minecraft:long_night_vision"}',
+            },
+          ],
+        },
+        {
+          type: "minecraft:item",
+          name: "minecraft:splash_potion",
+          functions: [
+            {
+              function: "minecraft:set_nbt",
+              tag: '{Potion:"minecraft:strong_strength"}',
             },
           ],
         },
