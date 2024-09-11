@@ -1,7 +1,7 @@
 import { abs, Coordinates, gamerule, MCFunction, Objective, scoreboard, Selector, team, teleport, worldborder } from "sandstone";
 import { WORLD_BORDER_CENTER } from "./Constants";
 import { updatePlayerPos } from "./Game/EnableWorldBorder";
-import { glowChestTick, glowChestTrigger } from "./Game/GlowingChest";
+import { glowChestTick, glowChestTrigger } from "./Game/Loot/GlowingChest";
 import { screenShakeTick } from "./Game/Start";
 
 // *  Scoreboard
