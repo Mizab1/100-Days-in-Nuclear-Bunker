@@ -3,6 +3,7 @@ import { WORLD_BORDER_CENTER } from "./Constants";
 import { updatePlayerPos } from "./Game/EnableWorldBorder";
 import { glowChestTick, glowChestTrigger } from "./Game/Loot/GlowingChest";
 import { screenShakeTick } from "./Game/Start";
+import { tornadoRunningLogic } from "./Game/Disaster/Tornado";
 
 // *  Scoreboard
 // Scores that shows the stats of the game
@@ -19,7 +20,6 @@ export const playerPosX = Objective.create("pos_x", "dummy")("@s");
 export const playerPosZ = Objective.create("pos_z", "dummy")("@s");
 
 export const self = Selector("@s");
-export const bunkerCoords: Coordinates = abs(-359, 79, 97);
 
 // ! Tick Function
 MCFunction(
@@ -30,6 +30,7 @@ MCFunction(
     updatePlayerPos();
     screenShakeTick();
     glowChestTick();
+    tornadoRunningLogic();
 
     // Enable the trigger
     scoreboard.players.enable("@a", glowChestTrigger.objective.name);
