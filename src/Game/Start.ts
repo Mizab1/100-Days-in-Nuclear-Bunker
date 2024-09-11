@@ -17,7 +17,8 @@ import {
   Variable,
 } from "sandstone";
 import { setScreenShakeTimer, shakeScreen } from "../Utils/ScreenShake";
-import { bunkerCoords, self } from "../Tick";
+import { self } from "../Tick";
+import { BUNKER_COORDS } from "../Constants";
 
 const shakeTime = 200;
 const showExplosionScore = Variable(0);
@@ -81,9 +82,9 @@ MCFunction(
 
         // Teleport the player to the real Bunker
         title("@a").title({ text: "You are in the Bunker", color: "green" });
-        teleport("@a", bunkerCoords);
-        playsound("minecraft:block.note_block.bell", "master", "@a", bunkerCoords);
-        spawnpoint("@a", bunkerCoords);
+        teleport("@a", BUNKER_COORDS);
+        playsound("minecraft:block.note_block.bell", "master", "@a", BUNKER_COORDS);
+        spawnpoint("@a", BUNKER_COORDS);
       });
   },
   {
