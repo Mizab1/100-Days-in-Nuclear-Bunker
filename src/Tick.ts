@@ -4,16 +4,18 @@ import { tornadoRunningLogic } from "./Game/Disaster/Tornado";
 import { updatePlayerPos } from "./Game/EnableWorldBorder";
 import { glowChestTick, glowChestTrigger } from "./Game/Loot/GlowingChest";
 import { screenShakeTick } from "./Game/Start";
+import { speedUpDayClock, detectNewDay } from "./Game/DayCycleController";
 
 // *  Scoreboard
 // Scores that shows the stats of the game
 const dayDisplay = "Day";
-const sidebarScores = Objective.create("sidebar_scores", "dummy", { text: "Game Stats:", color: "gold" });
+export const sidebarScores = Objective.create("sidebar_scores", "dummy", { text: "Game Stats:", color: "gold" });
 export const daysPassed = sidebarScores(dayDisplay);
 
 // Private scoreboard
 const privateScoreboard = Objective.create("pvt_scoreboard", "dummy");
 export const timeOfDay = privateScoreboard("time_of_day");
+export const isStarted = privateScoreboard("is_started");
 
 // Player position scoreboard
 export const playerPosX = Objective.create("pos_x", "dummy")("@s");
@@ -25,8 +27,8 @@ export const self = Selector("@s");
 MCFunction(
   "tick",
   () => {
-    // speedUpDayClock();
-    // detectNewDay();
+    speedUpDayClock();
+    detectNewDay();
     updatePlayerPos();
     screenShakeTick();
     glowChestTick();
@@ -42,8 +44,6 @@ MCFunction(
 MCFunction(
   "load",
   () => {
-    // scoreboard.objectives.setDisplay("sidebar", sidebarScores.name);
-
     // Suffix for day count on the side scoreboard
     team.add("day_count");
     team.modify("day_count", "suffix", `" Count:"`);
