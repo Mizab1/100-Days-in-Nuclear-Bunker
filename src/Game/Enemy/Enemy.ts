@@ -1,6 +1,6 @@
-import { _, execute, MCFunction, rel, Selector, spreadplayers, Variable } from "sandstone";
+import { _, abs, execute, MCFunction, rel, Selector, spreadplayers, Variable } from "sandstone";
 import { ENEMY_COUNT } from "../../Constants";
-import { daysPassed, self } from "../../Tick";
+import { daysPassed, isStarted, self } from "../../Tick";
 import { uniform } from "../../Utils/RandomUniform";
 
 const randomScore = Variable(0);
@@ -101,70 +101,71 @@ const mutantEnemyArr = [
   1122 95 243
 */
 const epicenterCoords = [
-  // abs(-288, 81, 174),
-  // abs(-369, 80, -12),
-  // abs(-586, 100, -75),
-  // abs(-503, 100, -86),
-  // abs(-108, 63, 527),
-  // abs(-65, 63, 414),
-  // abs(-125, 86, 210),
-  // abs(16, 81, 243),
-  // abs(134, 81, 165),
-  // abs(260, 81, 346),
-  // abs(198, 81, 415),
-  // abs(405, 81, 346),
-  // abs(491, 81, 280),
-  // abs(220, 81, 415),
-  // abs(130, 81, 499),
-  // abs(349, 81, 719),
-  // abs(824, 81, 857),
-  // abs(705, 81, 857),
-  // abs(950, 81, 706),
-  // abs(942, 81, 589),
-  // abs(821, 95, 421),
-  // abs(717, 95, 419),
-  // abs(368, 81, -281),
-  // abs(247, 81, -260),
-  // abs(1122, 95, -87),
-  // abs(1292, 95, -66),
-  // abs(1168, 95, 133),
-  // abs(1122, 95, 243),
-  // abs(14, 81, 524), // Test Coords
+  abs(-288, 81, 174),
+  abs(-369, 80, -12),
+  abs(-586, 100, -75),
+  abs(-503, 100, -86),
+  abs(-108, 63, 527),
+  abs(-65, 63, 414),
+  abs(-125, 86, 210),
+  abs(16, 81, 243),
+  abs(134, 81, 165),
+  abs(260, 81, 346),
+  abs(198, 81, 415),
+  abs(405, 81, 346),
+  abs(491, 81, 280),
+  abs(220, 81, 415),
+  abs(130, 81, 499),
+  abs(349, 81, 719),
+  abs(824, 81, 857),
+  abs(705, 81, 857),
+  abs(950, 81, 706),
+  abs(942, 81, 589),
+  abs(821, 95, 421),
+  abs(717, 95, 419),
+  abs(368, 81, -281),
+  abs(247, 81, -260),
+  abs(1122, 95, -87),
+  abs(1292, 95, -66),
+  abs(1168, 95, 133),
+  abs(1122, 95, 243),
 ];
 
 const enemySpawner = MCFunction(
   "game/enemy/enemy_spawner",
   () => {
-    // Absolute spawn
-    epicenterCoords.forEach((coords) => {
+    _.if(isStarted["=="](1), () => {
+      // Absolute spawn
+      epicenterCoords.forEach((coords) => {
+        execute
+          .positioned(coords)
+          .if.entity(Selector("@a", { distance: [Infinity, 60] }))
+          .run(() =>
+            MCFunction(
+              "game/enemy/positioned_check_day_and_spawn",
+              () => {
+                spawnWithSpread(2, 8);
+              },
+              { onConflict: "ignore" }
+            )()
+          );
+      });
+
+      // Relative spawn
       execute
-        .positioned(coords)
-        .if.entity(Selector("@a", { distance: [Infinity, 100] }))
-        .run(() =>
+        .as(Selector("@a", { limit: 1 }))
+        .at(self)
+        .positioned(rel(0, 10, 0))
+        .run(() => {
           MCFunction(
-            "game/enemy/positioned_check_day_and_spawn",
+            "game/enemy/relative_check_day_and_spawn",
             () => {
-              spawnWithSpread(2, 8);
+              spawnWithSpread(20, 40);
             },
             { onConflict: "ignore" }
-          )()
-        );
+          )();
+        });
     });
-
-    // Relative spawn
-    execute
-      .as(Selector("@a", { limit: 1 }))
-      .at(self)
-      .positioned(rel(0, 10, 0))
-      .run(() => {
-        MCFunction(
-          "game/enemy/relative_check_day_and_spawn",
-          () => {
-            spawnWithSpread(20, 40);
-          },
-          { onConflict: "ignore" }
-        )();
-      });
   },
   {
     runEach: "50s",
@@ -239,7 +240,7 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
         MCFunction(
           "game/enemy/spawn_random_enemy_mutant",
           () => {
-            const enemyArr = mutantEnemyArr.concat(easyEnemyArr);
+            const enemyArr = mutantEnemyArr.concat(easyEnemyArr, mediumEnemyArr, difficultEnemyArr);
             randomScore.set(uniform(0, enemyArr.length - 1));
             enemyArr.forEach((enemy, index) => {
               execute
