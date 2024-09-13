@@ -15,3 +15,10 @@ implement days pass system, weapons, loots, and custom zombies like bunker ones
 
 # Marker
 /summon block_display ~ ~ ~ {Glowing:1b,Tags:["dummy_bunker_marker"],transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.25f,-0.25f,-0.25f],scale:[0.5f,0.5f,0.5f]},block_state:{Name:"minecraft:gold_block"}}
+
+- To Fix
+✔ Added distance parameter to glowing chest function
+✔ Add arrows to the loot table
+✔ Add sword to the starting chest
+☐ Add more chest
+✔ Add backpack mod
