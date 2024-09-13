@@ -86,7 +86,7 @@ MCFunction(
         showExplosionScore.set(0);
 
         // Set the scores
-        // isStarted.set(1);
+        isStarted.set(1);
         daysPassed.set(0);
 
         // Set the time to morning
