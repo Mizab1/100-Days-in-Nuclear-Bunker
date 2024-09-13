@@ -10,9 +10,12 @@ export const glowChestTick = MCFunction("game/glowing_chest/tick", () => {
       glowChestTrigger.set(0);
 
       chestCoords.forEach((coords, index) => {
-        execute.positioned(coords).run(() => {
-          summonGlowingMarker(coords);
-        });
+        execute
+          .positioned(coords)
+          .if(Selector("@a", { distance: [Infinity, 80] }))
+          .run(() => {
+            summonGlowingMarker(coords);
+          });
 
         if (index == chestCoords.length - 1) {
           schedule.function(() => {
