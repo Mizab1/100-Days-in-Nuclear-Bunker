@@ -1,4 +1,4 @@
-import { _, abs, execute, MCFunction, rel, Selector, spreadplayers, Variable } from "sandstone";
+import { _, abs, execute, MCFunction, NBT, rel, Selector, spreadplayers, Variable } from "sandstone";
 import { ENEMY_COUNT } from "../../Constants";
 import { daysPassed, isStarted, self } from "../../Tick";
 import { uniform } from "../../Utils/RandomUniform";
@@ -182,9 +182,11 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
         () => {
           randomScore.set(uniform(0, easyEnemyArr.length - 1));
           easyEnemyArr.forEach((enemy, index) => {
-            execute
-              .if(randomScore["=="](index))
-              .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+            execute.if(randomScore["=="](index)).run.summon(enemy, rel(0, 0, 0), {
+              Tags: ["enemy"],
+              DeathLootTable: "minecraft:empty",
+              PersistenceRequired: NBT.byte(0),
+            });
           });
         },
         { onConflict: "ignore" }
@@ -202,9 +204,11 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
           () => {
             randomScore.set(uniform(0, mediumEnemyArr.length - 1));
             mediumEnemyArr.forEach((enemy, index) => {
-              execute
-                .if(randomScore["=="](index))
-                .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+              execute.if(randomScore["=="](index)).run.summon(enemy, rel(0, 0, 0), {
+                Tags: ["enemy"],
+                DeathLootTable: "minecraft:empty",
+                PersistenceRequired: NBT.byte(0),
+              });
             });
           },
           { onConflict: "ignore" }
@@ -222,9 +226,11 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
           () => {
             randomScore.set(uniform(0, difficultEnemyArr.length - 1));
             difficultEnemyArr.forEach((enemy, index) => {
-              execute
-                .if(randomScore["=="](index))
-                .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+              execute.if(randomScore["=="](index)).run.summon(enemy, rel(0, 0, 0), {
+                Tags: ["enemy"],
+                DeathLootTable: "minecraft:empty",
+                PersistenceRequired: NBT.byte(0),
+              });
             });
           },
           { onConflict: "ignore" }
@@ -243,9 +249,11 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
             const enemyArr = mutantEnemyArr.concat(easyEnemyArr, mediumEnemyArr, difficultEnemyArr);
             randomScore.set(uniform(0, enemyArr.length - 1));
             enemyArr.forEach((enemy, index) => {
-              execute
-                .if(randomScore["=="](index))
-                .run.summon(enemy, rel(0, 0, 0), { Tags: ["enemy"], DeathLootTable: "minecraft:empty" });
+              execute.if(randomScore["=="](index)).run.summon(enemy, rel(0, 0, 0), {
+                Tags: ["enemy"],
+                DeathLootTable: "minecraft:empty",
+                PersistenceRequired: NBT.byte(0),
+              });
             });
           },
           { onConflict: "ignore" }
