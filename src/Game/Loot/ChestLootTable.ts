@@ -120,6 +120,21 @@ LootTable("chest/loot", {
           name: "minecraft:crossbow",
           weight: 6,
         },
+        {
+          type: "minecraft:item",
+          name: "minecraft:arrow",
+          weight: 9,
+          functions: [
+            {
+              function: "minecraft:set_count",
+              count: {
+                type: "minecraft:uniform",
+                min: 8,
+                max: 37,
+              },
+            },
+          ],
+        },
       ],
     },
     {
