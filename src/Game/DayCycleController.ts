@@ -37,6 +37,7 @@ export const detectNewDay = MCFunction("day_controller/detect_a_new_day", () => 
       { text: "Day: ", color: "red" },
       { score: { name: daysPassed.target, objective: daysPassed.objective.name }, color: "gold" },
     ]);
+    execute.as("@a").at(self).run.playsound("minecraft:block.basalt.break", "master", self);
   });
 });
 
