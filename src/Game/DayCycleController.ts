@@ -5,12 +5,12 @@ import { daysPassed, isStarted, self, timeOfDay } from "../Tick";
 const dayNumberArr = [0, 1, 8, 15, 26, 31, 40, 58, 62, 75, 84, 97, 100];
 
 // Speed up the day, called by Tick function
-export const speedUpDayClock = MCFunction("day_controller/speed_up_day_clock", () => {
+export const speedUpDayClock = MCFunction("game/day_controller/speed_up_day_clock", () => {
   time.add(TIME_TICKS);
 });
 
 // Detect a new day
-export const detectNewDay = MCFunction("day_controller/detect_a_new_day", () => {
+export const detectNewDay = MCFunction("game/day_controller/detect_a_new_day", () => {
   // Store the current time
   execute.store.result.score(timeOfDay).run.time.query("daytime");
 
@@ -26,11 +26,6 @@ export const detectNewDay = MCFunction("day_controller/detect_a_new_day", () => 
         catcher.set(1);
       });
     });
-    // Completed the challenge of 100 days
-    _.if(_.and(daysPassed.equalTo(100), catcher.equalTo(0)), () => {
-      endChallenge();
-      catcher.set(1);
-    });
 
     // daysPassed.add(1);
     title("@a").title([
@@ -38,10 +33,16 @@ export const detectNewDay = MCFunction("day_controller/detect_a_new_day", () => 
       { score: { name: daysPassed.target, objective: daysPassed.objective.name }, color: "gold" },
     ]);
     execute.as("@a").at(self).run.playsound("minecraft:block.basalt.break", "master", self);
+
+    // Completed the challenge of 100 days
+    _.if(_.and(daysPassed.equalTo(100), catcher.equalTo(0)), () => {
+      endChallenge();
+      catcher.set(1);
+    });
   });
 });
 
-const endChallenge = MCFunction("day_controller/end_challenge", () => {
+const endChallenge = MCFunction("game/day_controller/end_challenge", () => {
   scoreboard.objectives.setDisplay("sidebar");
   daysPassed.set(0);
   isStarted.set(0);
@@ -50,7 +51,7 @@ const endChallenge = MCFunction("day_controller/end_challenge", () => {
     .as("@a")
     .at(self)
     .run(() => {
-      title(self).title({ text: "You have completed 100 Days!", color: "gold" });
+      title(self).title({ text: "You have completed 100 Days!", color: "yellow" });
       playsound("minecraft:ui.toast.challenge_complete", "master", self);
     });
 });
