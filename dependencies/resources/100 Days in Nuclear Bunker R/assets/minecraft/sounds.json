@@ -1,0 +1,15 @@
+{
+  "sfx.nuclear_explosion": {
+    "sounds": [
+      {
+        "name": "sfx/nuclear_explosion",
+        "volume": 1,
+        "pitch": 1,
+        "weight": 1,
+        "stream": false,
+        "attenuation_distance": 16,
+        "preload": false
+      }
+    ]
+  }
+}
