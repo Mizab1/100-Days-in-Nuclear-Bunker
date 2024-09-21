@@ -1,5 +1,4 @@
 import {
-  _,
   abs,
   Coordinates,
   effect,
@@ -7,9 +6,7 @@ import {
   kill,
   MCFunction,
   NBT,
-  particle,
   playsound,
-  rel,
   scoreboard,
   Selector,
   sleep,
@@ -20,13 +17,12 @@ import {
   tellraw,
   time,
   title,
-  Variable,
 } from "sandstone";
-import { setScreenShakeTimer, shakeScreen } from "../Utils/ScreenShake";
-import { daysPassed, isStarted, self, sidebarScores } from "../Tick";
 import { BUNKER_COORDS } from "../Constants";
+import { daysPassed, isStarted, self, sidebarScores } from "../Tick";
+import { setScreenShakeTimer, shakeScreen } from "../Utils/ScreenShake";
 
-const shakeTime = 20 * 25;
+const shakeTime = 20 * 30;
 
 const glowingMarkerCoords = [
   abs(-1121, 99, -55),
@@ -40,8 +36,16 @@ MCFunction("game/start", async () => {
   // Teleport the player near the explosion
   teleport("@a", abs(-1211, 98, -12), abs(5, -16));
 
+  // Play the siren sound
+  execute.as("@a").at(self).run.playsound("minecraft:sfx.siren", "master", self);
+
+  await sleep("4s");
+
   // Play the nuclear explosion sound
   execute.as("@a").at(self).run.playsound("minecraft:sfx.nuclear_explosion", "master", self);
+
+  // Add screen shake effect
+  setScreenShakeTimer(shakeTime);
 
   // Reset the timings of the title
   title("@a").reset();
@@ -51,10 +55,6 @@ MCFunction("game/start", async () => {
   title("@a").title({ text: "Go in the Bunker for shelter", color: "red" });
   title("@a").subtitle({ text: "Follow the Glowing Marker", color: "gold" });
   glowingMarkerCoords.forEach((coord) => placeGlowingMarker(coord));
-
-  await sleep("10t");
-
-  setScreenShakeTimer(shakeTime);
 });
 
 MCFunction(
