@@ -268,3 +268,17 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
       spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
     });
 };
+
+// Spawn No AI Mob for showcase
+// MCFunction("spawn_no_ai_mob", () => {
+//   const allMobs = mutantEnemyArr;
+
+//   allMobs.forEach((mob, index) => {
+//     summon(mob, rel(index * 3, 0, 0), {
+//       Tags: ["enemy"],
+//       DeathLootTable: "minecraft:empty",
+//       NoAI: NBT.byte(1),
+//     });
+//   });
+//   console.log(allMobs.length);
+// });
