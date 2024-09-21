@@ -1,4 +1,4 @@
-import { _, abs, execute, MCFunction, NBT, rel, Selector, spreadplayers, Variable } from "sandstone";
+import { _, abs, effect, execute, MCFunction, NBT, rel, Selector, spreadplayers, Variable } from "sandstone";
 import { ENEMY_COUNT } from "../../Constants";
 import { daysPassed, isStarted, self } from "../../Tick";
 import { uniform } from "../../Utils/RandomUniform";
@@ -196,6 +196,7 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
     spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
   })
     .elseIf(_.and(daysPassed[">="](26), daysPassed["<="](50)), () => {
+      effect.give("@a", "minecraft:resistance", 60 * 5, 3, true);
       // Spawn multiple mob and spread them out
       let temp = ENEMY_COUNT;
       while (temp > 0) {
@@ -218,6 +219,8 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
       spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
     })
     .elseIf(_.and(daysPassed[">="](51), daysPassed["<="](75)), () => {
+      effect.give("@a", "minecraft:resistance", 60 * 5, 3, true);
+
       // Spawn multiple mob and spread them out
       let temp = ENEMY_COUNT;
       while (temp > 0) {
@@ -240,13 +243,15 @@ const spawnWithSpread = (spreadDistance: number, maxRange: number) => {
       spreadplayers(rel(0, 0), spreadDistance, maxRange, false, Selector("@e", { tag: "enemy", distance: [Infinity, 3] }));
     })
     .elseIf(_.and(daysPassed[">="](76), daysPassed["<="](100)), () => {
+      effect.give("@a", "minecraft:resistance", 60 * 5, 3, true);
+
       // Spawn multiple mob and spread them out
       let temp = ENEMY_COUNT;
       while (temp > 0) {
         MCFunction(
           "game/enemy/spawn_random_enemy_mutant",
           () => {
-            const enemyArr = mutantEnemyArr.concat(easyEnemyArr, mediumEnemyArr, difficultEnemyArr);
+            const enemyArr = mutantEnemyArr.concat(mediumEnemyArr);
             randomScore.set(uniform(0, enemyArr.length - 1));
             enemyArr.forEach((enemy, index) => {
               execute.if(randomScore["=="](index)).run.summon(enemy, rel(0, 0, 0), {
