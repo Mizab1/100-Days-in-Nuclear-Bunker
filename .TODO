@@ -13,6 +13,9 @@ implement days pass system, weapons, loots, and custom zombies like bunker ones
 ✔ also you should add blindness effect as transsition effect when you tp him
 ✔ also the explossive particles aren't good, just remove them, the explosion is nuclear
 ✔ also you could add a nuclear sound bomb
+✔ Retexture the food to tin food
+✔ Make a short video showcasing types of zombies
+✔ Okay so teleport -> siren sound for 4 seconds -> shaking effect and nuclear bomb sound and objective title
 
 - Commands
 /summon text_display -1076 215.4 -239.9 {Tags:["start_text"],text:'{"text":"<- Start","color":"gold"}'}
